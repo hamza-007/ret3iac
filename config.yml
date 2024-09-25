@@ -1,0 +1,13 @@
+resources:
+  - type: "aws_instance"
+    name: "my_ec2"
+    config:
+      ami: "ami-12345678"
+      instance_type: "t2.micro"
+      region: "us-east-1"
+
+  - type: "aws_s3_bucket"
+    name: "my_bucket"
+    config:
+      bucket: "my-unique-bucket-name"
+      region: "us-east-1"
