@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: Build Go App for Multiple Platforms
+    name: Build
     runs-on: ubuntu-latest
 
     strategy:
@@ -27,7 +27,7 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
-        go-version: '1.21'
+        go-version: '1.23'
 
     # Step 3: Set up build parameters
     - name: Set environment variables
@@ -40,14 +40,14 @@ jobs:
       run: |
         mkdir -p build
         if [ "${{ matrix.os }}" == "windows" ]; then
-          GOOS=windows GOARCH=${{ matrix.arch }} go build -o build/ret3iac-${{ matrix.os }}-${{ matrix.arch }}.exe
+          GOOS=windows GOARCH=${{ matrix.arch }} go build -o build/ret3iac.${{ matrix.os }}-${{ matrix.arch }}.exe
         else
-          GOOS=linux GOARCH=${{ matrix.arch }} go build -o build/ret3iac-${{ matrix.os }}-${{ matrix.arch }}
+          GOOS=linux GOARCH=${{ matrix.arch }} go build -o build/ret3iac.${{ matrix.os }}-${{ matrix.arch }}
         fi
 
     # Step 5: Upload artifacts (build output)
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: go-binaries-${{ matrix.os }}-${{ matrix.arch }}
+        name: ret3iac.${{ matrix.os }}-${{ matrix.arch }}
         path: build/
