@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: Build Go App and Create Debian Package
+    name: Build Go App
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,13 +20,13 @@ jobs:
     steps:
     # Step 1: Check out the code
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     # Step 2: Set up Go environment
     - name: Set up Go
-      uses: actions/setup-go@v4
+      uses: actions/setup-go@v5
       with:
-        go-version: '1.21'
+        go-version: '1.23'
 
     # Step 3: Build the Go application
     - name: Build the Go application for ${{ matrix.arch }}
@@ -58,7 +58,7 @@ jobs:
 
     # Step 7: Upload the Debian package as a build artifact
     - name: Upload .deb package artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ret3iac-${{ matrix.arch }}.deb
         path: ret3iac_${{ matrix.arch }}.deb
